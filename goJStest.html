@@ -5,33 +5,54 @@
   <title>Learning godotjs</title>
   <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
   <!-- <script src="go.js"></script> -->
-    <script src="https://gojs.net/latest/release/go-debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.8.27/go.js"></script>
+
   <script>
     function init() {
       var $ = go.GraphObject.make;
         myDiagram = $(go.Diagram, "myDiagramDiv");
-        var nodeDataArray = [
+
+        var myModel = $(go.Model);
+
+        myModel.nodeDataArray = [
           { key: "Alpha", color: "lime" },
-          { key: "Beta", color: "cyan" }
+          { key: "Beta", color: "cyan" },
+          { key: "Zeta", isGroup: true },
+          { key: "Delta", color: "pink", group: "Zeta" },
+          { key: "Gamma", color: "maroon", group: "Zeta" }
         ];
-        var linkDataArray = [
-          { to: "Beta", from: "Alpha" }
+        myModel.linkDataArray = [
+          { to: "Beta", from: "Alpha", color: "red" },
+          { to: "Zeta", from: "Alpha"}
         ];
-        myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+        myDiagram.model = myModel;
 
         myDiagram.nodeTemplate =
           $(go.Node, "Auto",
-            $(go.Shape, "RoundedRectangle", { fill: "White" }),
+            $(go.Shape, "RoundedRectangle",
               new go.Binding("fill", "color")
           ),
-            $(go.textBlock, "Text",
-              new go.Binding("Text", "Key")
+            $(go.textBlock, "text", { margin: 10 },
+              new go.Binding("text", "key")
+            )
+          );
+
+          myDiagram.linkTemplate =
+          $(go.Link,
+            $(go.Shape, { strokeWidth: 3 },
+              new go.Binding("stroke", "color")
+              ),
+            $(go.Shape, { toArrow: "Standard", stroke: null},
+              new go.Binding("fill", "color")
+              )
           )
     }
   </script>
+
 </head>
+
 <body onload="init()">
-  <div id="myDiagramDiv" style="width:300px; height:300px; border: 1px solid black">
+  <div id="myDiagramDiv" style="width:300px; height:300px; border: 1px solid black;">
   </div>
 
 
