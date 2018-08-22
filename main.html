@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Learning go.js</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <script src="go-debug.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.8.27/go-debug.js"></script>
+</head>
+<body>
+  <div id="myDiagramDiv" style="width:400px; height:150px; background-color: #DAE4E4">
+  </div>
+  var $ = go.GraphObject.make;
+  var myDiagram =
+    $(go.Diagram, 'myDiagramDiv');
+</body>
+</html>
